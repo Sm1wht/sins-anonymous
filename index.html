@@ -57,6 +57,27 @@
         .center {
             text-align: center;
         }
+        .confession-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .confession-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+        }
+        .confession-card p {
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -66,5 +87,25 @@
         <a href="confess.html"><button>Confess Your Sins Anonymously</button></a>
         <p>Your confessions will be posted anonymously if you choose to publish them.</p>
     </div>
+
+    <!-- Gallery of public confessions -->
+    <div class="confession-gallery" id="confessionGallery">
+        <!-- Confessions will be loaded here -->
+    </div>
+
+    <script>
+        // Load confessions from local storage when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('confessionGallery');
+            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+
+            confessions.forEach(confession => {
+                const card = document.createElement('div');
+                card.className = 'confession-card';
+                card.innerHTML = `<p>${confession}</p>`;
+                gallery.appendChild(card);
+            });
+        });
+    </script>
 </body>
 </html>
