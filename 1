@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Confessions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            resize: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anonymous Confessions</h1>
+    <p>Welcome to Anonymous Confessions: A safe space where you can unburden your soul and share your deepest secrets without fear of judgment. Here, you can anonymously confess your sins, knowing that your identity remains hidden. Every confession is recorded securely, and only the administrator has access to view them, ensuring your privacy. Let go of your guilt and find solace in the act of confession. Your anonymity is our priority.</p>
+    <form id="confessionForm">
+        <textarea id="confession" rows="4" placeholder="Confess your sins..." required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message"></div>
+    <script>
+        document.getElementById('confessionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const confession = document.getElementById('confession').value;
+
+            // Simulate sending the confession to a server
+            setTimeout(() => {
+                document.getElementById('message').innerText = "Your confession has been received.";
+                document.getElementById('confession').value = '';
+            }, 1000);
+
+            // Log the confession and the IP address for the administrator
+            console.log(`Confession: ${confession}`);
+            // Note: For actual IP logging, server-side handling is required.
+        });
+    </script>
+</body>
+</html>
