@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confess Your Sins</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            resize: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Confess Your Sins</h1>
+    <form id="confessionForm">
+        <textarea id="confession" rows="4" placeholder="Confess your sins..." required></textarea>
+        <label>
+            <input type="checkbox" id="publishAnonymously"> Publish anonymously on the website
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message" class="center"></div>
+    <script>
+        document.getElementById('confessionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const confession = document.getElementById('confession').value;
+            const publishAnonymously = document.getElementById('publishAnonymously').checked;
+            const messageDiv = document.getElementById('message');
+
+            if (publishAnonymously) {
+                // Simulate saving confession to a "public" page
+                // This could involve saving to a file or a database in a real application
+                console.log(`Confession to be published: ${confession}`);
+                messageDiv.innerText = "Your confession has been received and will be published anonymously.";
+            } else {
+                // Handle non-anonymous confession
+                console.log(`Confession: ${confession}`);
+                messageDiv.innerText = "Your confession has been received.";
+            }
+
+            document.getElementById('confession').value = '';
+        });
+    </script>
+</body>
+</html>
