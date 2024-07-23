@@ -67,17 +67,22 @@
             const messageDiv = document.getElementById('message');
 
             if (publishAnonymously) {
-                // Simulate saving confession to a "public" page
-                // This could involve saving to a file or a database in a real application
-                console.log(`Confession to be published: ${confession}`);
+                // Load existing confessions from local storage
+                let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+                confessions.push(confession);
+                localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+
                 messageDiv.innerText = "Your confession has been received and will be published anonymously.";
             } else {
                 // Handle non-anonymous confession
-                console.log(`Confession: ${confession}`);
                 messageDiv.innerText = "Your confession has been received.";
             }
 
+            // Clear the form and redirect to homepage
             document.getElementById('confession').value = '';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
         });
     </script>
 </body>
