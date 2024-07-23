@@ -54,31 +54,17 @@
             font-weight: bold;
             text-align: center;
         }
+        .center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Anonymous Confessions</h1>
-    <p>Welcome to sins anonymous: A safe website where you can anonymously confess your sins or any actions that made you guilty. Knowing that your identity remains hidden, I cannot be traced to you and there will not be any consequences for your confessions.Let go of your guilt and find solace in the act of confession. Your anonymity is our priority.</p>
-    <form id="confessionForm">
-        <textarea id="confession" rows="4" placeholder="Confess your sins..." required></textarea>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="message"></div>
-    <script>
-        document.getElementById('confessionForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const confession = document.getElementById('confession').value;
-
-            // Simulate sending the confession to a server
-            setTimeout(() => {
-                document.getElementById('message').innerText = "Your confession has been received.";
-                document.getElementById('confession').value = '';
-            }, 1000);
-
-            // Log the confession and the IP address for the administrator
-            console.log(`Confession: ${confession}`);
-            // Note: For actual IP logging, server-side handling is required.
-        });
-    </script>
+    <p>Welcome to sins anonymous: A safe website where you can anonymously confess your sins or any actions that made you guilty. Knowing that your identity remains hidden, I cannot be traced to you and there will not be any consequences for your confessions. Let go of your guilt and find solace in the act of confession. Your anonymity is our priority.</p>
+    <div class="center">
+        <a href="confess.html"><button>Confess Your Sins Anonymously</button></a>
+        <p>Your confessions will be posted anonymously if you choose to publish them.</p>
+    </div>
 </body>
 </html>
