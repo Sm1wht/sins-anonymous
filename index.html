@@ -36,7 +36,8 @@
             background-color: #555;
         }
         .admin-button {
-            display: none; /* Initially hidden */
+            display: block;
+            margin: 20px auto;
             padding: 10px;
             background-color: #444;
             color: #e0e0e0;
@@ -44,7 +45,6 @@
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
-            margin: 20px auto;
         }
         .admin-button:hover {
             background-color: #555;
@@ -91,6 +91,7 @@
         <p>Welcome to Anonymous Confessions. Share your secrets anonymously or read what others have to confess.</p>
     </div>
     <button class="confess-button" onclick="showConfessionForm()">Make a Confession</button>
+    <button class="admin-button" onclick="showAdminLogin()">Admin Login</button>
     <div class="confession-gallery" id="confessionGallery"></div>
 
     <div id="confessionForm" style="display: none;">
@@ -130,6 +131,15 @@
             confessions.splice(index, 1);
             localStorage.setItem('publicConfessions', JSON.stringify(confessions));
             loadConfessions();
+        }
+
+        function showAdminLogin() {
+            const password = prompt('Enter password to access admin panel:');
+            if (password === '76631') {
+                window.location.href = 'admin.html'; // Redirect to admin page
+            } else {
+                alert('Incorrect password.');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', loadConfessions);
