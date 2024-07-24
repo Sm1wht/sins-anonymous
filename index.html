@@ -104,3 +104,19 @@
     </script>
 </body>
 </html>
+
+<script>
+    function checkAdminPassword() {
+        const password = prompt('Enter admin password:');
+        if (password === 'admin123') {
+            window.location.href = 'admin.html'; // Die Seite für den Admin
+        } else {
+            alert('Incorrect password.');
+        }
+    }
+
+    document.getElementById('adminButton').addEventListener('click', checkAdminPassword);
+</script>
+
+
+<button id="adminButton" style="display:block; margin: 20px auto; padding: 10px; background-color: #444; color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;">Admin Login</button>
