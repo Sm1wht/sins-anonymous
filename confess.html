@@ -65,10 +65,26 @@
                 return;
             }
 
-            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            const publicConfessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            const privateConfessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+
             if (document.getElementById('publicConfession').checked) {
-                confessions.push(confessionText);
-                localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+                publicConfessions.push(confessionText);
+                localStorage.setItem('publicConfessions', JSON.stringify(publicConfessions));
+            } else {
+                const date = new Date().toISOString();
+                const country = 'Unknown'; // Update this with actual location data if possible
+                const ip = 'Unknown'; // Update this with actual IP data if possible
+                
+                const confession = {
+                    text: confessionText,
+                    date: date,
+                    country: country,
+                    ip: ip
+                };
+
+                privateConfessions.push(confession);
+                localStorage.setItem('privateConfessions', JSON.stringify(privateConfessions));
             }
 
             alert('Confession submitted!');
