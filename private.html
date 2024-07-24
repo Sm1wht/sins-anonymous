@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Confessions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .confession-list {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .confession-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Private Confessions</h1>
+    <div class="confession-list" id="confessionList">
+        <!-- Private confessions will be loaded here -->
+    </div>
+    <script>
+        // Load private confessions from local storage
+        document.addEventListener('DOMContentLoaded', function() {
+            const confessionList = document.getElementById('confessionList');
+            const privateConfessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+
+            privateConfessions.forEach(confession => {
+                const item = document.createElement('div');
+                item.className = 'confession-item';
+                item.innerText = confession;
+                confessionList.appendChild(item);
+            });
+        });
+    </script>
+</body>
+</html>
