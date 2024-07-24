@@ -19,41 +19,6 @@
             font-size: 1.2em;
             color: #666;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        textarea {
-            resize: none;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-        button {
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
         .center {
             text-align: center;
         }
@@ -62,50 +27,3 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 30px;
-        }
-        .confession-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-            text-align: center;
-        }
-        .confession-card p {
-            margin: 0;
-            padding: 0;
-            font-size: 1em;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <h1>Anonymous Confessions</h1>
-    <p>Welcome to sins anonymous: A safe website where you can anonymously confess your sins or any actions that made you guilty. Knowing that your identity remains hidden, I cannot be traced to you and there will not be any consequences for your confessions. Let go of your guilt and find solace in the act of confession. Your anonymity is our priority.</p>
-    <div class="center">
-        <a href="confess.html"><button>Confess Your Sins Anonymously</button></a>
-        <p>Your confessions will be posted anonymously if you choose to publish them.</p>
-    </div>
-
-    <!-- Gallery of public confessions -->
-    <div class="confession-gallery" id="confessionGallery">
-        <!-- Confessions will be loaded here -->
-    </div>
-
-    <script>
-        // Load confessions from local storage when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            const gallery = document.getElementById('confessionGallery');
-            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
-
-            confessions.forEach(confession => {
-                const card = document.createElement('div');
-                card.className = 'confession-card';
-                card.innerHTML = `<p>${confession}</p>`;
-                gallery.appendChild(card);
-            });
-        });
-    </script>
-</body>
-</html>
