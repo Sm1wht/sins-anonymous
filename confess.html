@@ -19,7 +19,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .confess-form input, .confess-form textarea, .confess-form button {
+        .confess-form textarea, .confess-form button, .confess-form input {
             display: block;
             width: 100%;
             margin: 10px 0;
@@ -27,7 +27,11 @@
             border: none;
             border-radius: 5px;
         }
-        .confess-form input, .confess-form textarea {
+        .confess-form textarea {
+            background: #444;
+            color: #e0e0e0;
+        }
+        .confess-form input[type="text"] {
             background: #444;
             color: #e0e0e0;
         }
@@ -45,23 +49,28 @@
     <div class="confess-form">
         <h1>Make a Confession</h1>
         <textarea id="confessionText" placeholder="Enter your confession here..." rows="6"></textarea>
-        <input type="text" id="adminPassword" placeholder="Enter password if you are an admin (optional)"/>
+        <label>
+            <input type="checkbox" id="publicConfession" />
+            Share this confession publicly
+        </label>
         <button onclick="submitConfession()">Submit</button>
     </div>
 
     <script>
         function submitConfession() {
             const confessionText = document.getElementById('confessionText').value;
-            const adminPassword = document.getElementById('adminPassword').value;
 
-            if (adminPassword === '76631') {
+            if (confessionText === '76631') {
                 window.location.href = 'admin.html'; // Redirect to admin page
                 return;
             }
 
             const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
-            confessions.push(confessionText);
-            localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+            if (document.getElementById('publicConfession').checked) {
+                confessions.push(confessionText);
+                localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+            }
+
             alert('Confession submitted!');
             window.location.href = 'index.html'; // Redirect to main page
         }
