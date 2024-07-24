@@ -35,6 +35,20 @@
         .confess-button:hover {
             background-color: #555;
         }
+        .admin-button {
+            display: none; /* Initially hidden */
+            padding: 10px;
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin: 20px auto;
+        }
+        .admin-button:hover {
+            background-color: #555;
+        }
         .confession-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -77,9 +91,36 @@
         <p>Welcome to Anonymous Confessions. Share your secrets anonymously or read what others have to confess.</p>
     </div>
     <button class="confess-button" onclick="window.location.href='confess.html'">Make a Confession</button>
+    <button id="adminButton" class="admin-button" onclick="checkAdminPassword()">Admin Login</button>
     <div class="confession-gallery" id="confessionGallery"></div>
 
     <script>
+        // Function to check for admin access
+        function checkAdminPassword() {
+            const password = prompt('Enter admin password:');
+            if (password === '76631') {
+                window.location.href = 'admin.html'; // Redirect to admin page
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+
+        // Show the admin button if the user is an admin (simplified example)
+        function showAdminButton() {
+            const isAdmin = prompt('Enter password to show admin button:');
+            if (isAdmin === '76631') {
+                document.getElementById('adminButton').style.display = 'block';
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display admin button (for simplicity, let's simulate it)
+            showAdminButton();
+            loadConfessions();
+        });
+
         function loadConfessions() {
             const gallery = document.getElementById('confessionGallery');
             const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
@@ -99,24 +140,6 @@
             localStorage.setItem('publicConfessions', JSON.stringify(confessions));
             loadConfessions();
         }
-
-        document.addEventListener('DOMContentLoaded', loadConfessions);
     </script>
 </body>
 </html>
-
-<script>
-    function checkAdminPassword() {
-        const password = prompt('Enter admin password:');
-        if (password === 'admin123') {
-            window.location.href = 'admin.html'; // Die Seite für den Admin
-        } else {
-            alert('Incorrect password.');
-        }
-    }
-
-    document.getElementById('adminButton').addEventListener('click', checkAdminPassword);
-</script>
-
-
-<button id="adminButton" style="display:block; margin: 20px auto; padding: 10px; background-color: #444; color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;">Admin Login</button>
