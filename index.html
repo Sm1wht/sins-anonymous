@@ -90,36 +90,27 @@
     <div class="intro-text">
         <p>Welcome to Anonymous Confessions. Share your secrets anonymously or read what others have to confess.</p>
     </div>
-    <button class="confess-button" onclick="window.location.href='confess.html'">Make a Confession</button>
-    <button id="adminButton" class="admin-button" onclick="checkAdminPassword()">Admin Login</button>
+    <button class="confess-button" onclick="showConfessionForm()">Make a Confession</button>
     <div class="confession-gallery" id="confessionGallery"></div>
 
+    <div id="confessionForm" style="display: none;">
+        <input type="password" id="adminPassword" placeholder="Enter admin password" style="display: block; margin: 0 auto; padding: 10px; background-color: #444; color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;"/>
+        <button onclick="checkAdminPassword()" style="display: block; margin: 20px auto; padding: 10px; background-color: #444; color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+    </div>
+
     <script>
-        // Function to check for admin access
+        function showConfessionForm() {
+            document.getElementById('confessionForm').style.display = 'block';
+        }
+
         function checkAdminPassword() {
-            const password = prompt('Enter admin password:');
+            const password = document.getElementById('adminPassword').value;
             if (password === '76631') {
                 window.location.href = 'admin.html'; // Redirect to admin page
             } else {
                 alert('Incorrect password.');
             }
         }
-
-        // Show the admin button if the user is an admin (simplified example)
-        function showAdminButton() {
-            const isAdmin = prompt('Enter password to show admin button:');
-            if (isAdmin === '76631') {
-                document.getElementById('adminButton').style.display = 'block';
-            } else {
-                alert('Incorrect password.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Display admin button (for simplicity, let's simulate it)
-            showAdminButton();
-            loadConfessions();
-        });
 
         function loadConfessions() {
             const gallery = document.getElementById('confessionGallery');
@@ -140,6 +131,8 @@
             localStorage.setItem('publicConfessions', JSON.stringify(confessions));
             loadConfessions();
         }
+
+        document.addEventListener('DOMContentLoaded', loadConfessions);
     </script>
 </body>
 </html>
