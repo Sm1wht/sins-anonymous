@@ -8,11 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             margin: 50px;
-            background-color: #f4f4f9;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #e0e0e0;
         }
         form {
             display: flex;
@@ -20,17 +21,19 @@
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
-            background-color: white;
+            background-color: #333;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         textarea {
             resize: none;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
             border-radius: 5px;
             font-size: 1em;
+            color: #e0e0e0;
+            background-color: #1e1e1e;
         }
         button {
             padding: 10px;
@@ -53,5 +56,39 @@
     <h1>Confess Your Sins</h1>
     <form id="confessionForm">
         <textarea id="confession" rows="4" placeholder="Confess your sins..." required></textarea>
-        <label>
-            <input
+        <label style="color: #e0e0e0;">
+            <input type="checkbox" id="publishAnonymously"> Publish anonymously on the website
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message" class="center"></div>
+
+    <script>
+        document.getElementById('confessionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const confession = document.getElementById('confession').value;
+            const publishAnonymously = document.getElementById('publishAnonymously').checked;
+            const messageDiv = document.getElementById('message');
+
+            if (publishAnonymously) {
+                let publicConfessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+                publicConfessions.push(confession);
+                localStorage.setItem('publicConfessions', JSON.stringify(publicConfessions));
+
+                messageDiv.innerText = "Your confession has been received and will be published anonymously.";
+            } else {
+                let privateConfessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+                privateConfessions.push(confession);
+                localStorage.setItem('privateConfessions', JSON.stringify(privateConfessions));
+
+                messageDiv.innerText = "Your confession has been received.";
+            }
+
+            document.getElementById('confession').value = '';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
