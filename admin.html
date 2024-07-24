@@ -62,14 +62,61 @@
         .private-button:hover {
             background-color: #555;
         }
+        .login-form {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #444;
+            color: #e0e0e0;
+        }
+        .login-form button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #555;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 <body>
-    <h1>Admin Page</h1>
-    <button class="private-button" onclick="window.location.href='adminPrivate.html'">View Private Confessions</button>
-    <div class="confession-gallery" id="adminConfessionGallery"></div>
+    <div class="login-form" id="loginForm">
+        <h1>Admin Login</h1>
+        <input type="password" id="password" placeholder="Enter password" />
+        <button onclick="checkPassword()">Login</button>
+    </div>
+    <div id="adminContent" style="display: none;">
+        <h1>Admin Page</h1>
+        <button class="private-button" onclick="window.location.href='adminPrivate.html'">View Private Confessions</button>
+        <div class="confession-gallery" id="adminConfessionGallery"></div>
+    </div>
 
     <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === '76631') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadConfessions();
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+
         function loadConfessions() {
             const gallery = document.getElementById('adminConfessionGallery');
             const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
@@ -89,8 +136,6 @@
             localStorage.setItem('publicConfessions', JSON.stringify(confessions));
             loadConfessions();
         }
-
-        document.addEventListener('DOMContentLoaded', loadConfessions);
     </script>
 </body>
 </html>
