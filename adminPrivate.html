@@ -83,11 +83,13 @@
                 const card = document.createElement('div');
                 card.className = 'confession-card';
                 
-                const details = `<div class="details">
-                                    <p><strong>Date:</strong> ${confession.date}</p>
-                                    <p><strong>Country:</strong> ${confession.country}</p>
-                                    <p><strong>IP Address:</strong> ${confession.ip}</p>
-                                  </div>`;
+                const details = `
+                    <div class="details">
+                        <p><strong>Date:</strong> ${confession.date}</p>
+                        <p><strong>Country:</strong> ${confession.country}</p>
+                        <p><strong>IP Address:</strong> ${confession.ip}</p>
+                    </div>
+                `;
 
                 card.innerHTML = `
                     <p>${confession.text}</p>
