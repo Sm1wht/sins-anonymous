@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Private Confessions</title>
+    <title>Admin Private Confessions</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,4 +11,109 @@
             background-color: #1e1e1e;
             color: #e0e0e0;
         }
-        h
+        h1 {
+            text-align: center;
+            color: #e0e0e0;
+        }
+        .confession-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .confession-card {
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+        .confession-card p {
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+            color: #e0e0e0;
+        }
+        .confession-card .details {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background: darkred;
+        }
+        .view-details {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #555;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .view-details:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Private Confessions</h1>
+    <div class="confession-gallery" id="privateConfessionGallery"></div>
+
+    <script>
+        function loadPrivateConfessions() {
+            const gallery = document.getElementById('privateConfessionGallery');
+            const confessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+            gallery.innerHTML = '';
+
+            confessions.forEach((confession, index) => {
+                const card = document.createElement('div');
+                card.className = 'confession-card';
+                
+                const details = `<div class="details">
+                                    <p><strong>Date:</strong> ${confession.date}</p>
+                                    <p><strong>Country:</strong> ${confession.country}</p>
+                                    <p><strong>IP Address:</strong> ${confession.ip}</p>
+                                  </div>`;
+
+                card.innerHTML = `
+                    <p>${confession.text}</p>
+                    <button class="view-details" onclick="toggleDetails(${index})">View Details</button>
+                    <button class="delete-button" onclick="deleteConfession(${index})">Delete</button>
+                    ${details}
+                `;
+
+                gallery.appendChild(card);
+            });
+        }
+
+        function toggleDetails(index) {
+            const details = document.querySelectorAll('.confession-card .details')[index];
+            const isVisible = details.style.display === 'block';
+            details.style.display = isVisible ? 'none' : 'block';
+        }
+
+        function deleteConfession(index) {
+            let confessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+            confessions.splice(index, 1);
+            localStorage.setItem('privateConfessions', JSON.stringify(confessions));
+            loadPrivateConfessions();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPrivateConfessions);
+    </script>
+</body>
+</html>
