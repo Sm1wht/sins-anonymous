@@ -67,14 +67,18 @@
             const messageDiv = document.getElementById('message');
 
             if (publishAnonymously) {
-                // Load existing confessions from local storage
-                let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
-                confessions.push(confession);
-                localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+                // Load existing public confessions from local storage
+                let publicConfessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+                publicConfessions.push(confession);
+                localStorage.setItem('publicConfessions', JSON.stringify(publicConfessions));
 
                 messageDiv.innerText = "Your confession has been received and will be published anonymously.";
             } else {
-                // Handle non-anonymous confession
+                // Load existing private confessions from local storage
+                let privateConfessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
+                privateConfessions.push(confession);
+                localStorage.setItem('privateConfessions', JSON.stringify(privateConfessions));
+
                 messageDiv.innerText = "Your confession has been received.";
             }
 
