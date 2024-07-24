@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Admin Panel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,67 +15,81 @@
             text-align: center;
             color: #e0e0e0;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            max-width: 300px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #333;
-            border-radius: 8px;
+        .confession-card {
+            background: #333;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            margin: 10px auto;
         }
-        input[type="password"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #555;
-            border-radius: 5px;
-            font-size: 1em;
-            color: #e0e0e0;
-            background-color: #1e1e1e;
-        }
-        button {
-            padding: 10px;
-            background-color: #007BFF;
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 1em;
             cursor: pointer;
         }
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
+        .delete-button:hover {
+            background: darkred;
+        }
+        .private-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             text-align: center;
+        }
+        .private-button:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
-    <h1>Admin Login</h1>
-    <form id="adminLoginForm">
-        <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <div id="message"></div>
+    <h1>Admin Panel</h1>
+    <div id="confessionGallery"></div>
+    <button class="private-button" onclick="checkPrivateAccess()">Access Private Confessions</button>
 
     <script>
-        document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const password = document.getElementById('adminPassword').value;
+        function loadPublicConfessions() {
+            const gallery = document.getElementById('confessionGallery');
+            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            gallery.innerHTML = '';
 
-            if (password === 'your_admin_password') { // Change 'your_admin_password' to your actual password
-                localStorage.setItem('isAdmin', 'true');
-                window.location.href = 'admin_dashboard.html';
+            confessions.forEach((confession, index) => {
+                const card = document.createElement('div');
+                card.className = 'confession-card';
+                card.innerHTML = `<p>${confession}</p><button class="delete-button" onclick="deleteConfession(${index})">Delete</button>`;
+                gallery.appendChild(card);
+            });
+        }
+
+        function deleteConfession(index) {
+            let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            confessions.splice(index, 1);
+            localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+            loadPublicConfessions();
+        }
+
+        function checkPrivateAccess() {
+            const password = prompt('Enter password for private confessions:');
+            if (password === '1006') {
+                window.location.href = 'private-confessions.html'; // Redirect to private confessions page
             } else {
-                document.getElementById('message').innerText = 'Incorrect password. Please try again.';
+                alert('Incorrect password.');
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPublicConfessions);
     </script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
