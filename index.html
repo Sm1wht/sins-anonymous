@@ -14,14 +14,6 @@
             text-align: center;
             color: #333;
         }
-        p {
-            text-align: center;
-            font-size: 1.2em;
-            color: #666;
-        }
-        .center {
-            text-align: center;
-        }
         .confession-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -32,4 +24,56 @@
         .confession-card {
             background: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+        .confession-card p {
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+            color: #333;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anonymous Confessions</h1>
+    <div class="confession-gallery" id="confessionGallery"></div>
+
+    <script>
+        function loadConfessions() {
+            const gallery = document.getElementById('confessionGallery');
+            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            gallery.innerHTML = '';
+
+            confessions.forEach((confession, index) => {
+                const card = document.createElement('div');
+                card.className = 'confession-card';
+                card.innerHTML = `<p>${confession}</p><button class="delete-button" onclick="deleteConfession(${index})">Delete</button>`;
+                gallery.appendChild(card);
+            });
+        }
+
+        function deleteConfession(index) {
+            let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            confessions.splice(index, 1);
+            localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+            loadConfessions();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadConfessions);
+    </script>
+</body>
+</html>
