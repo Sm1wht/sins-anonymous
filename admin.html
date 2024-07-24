@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +15,12 @@
             text-align: center;
             color: #e0e0e0;
         }
+        .confession-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
         .confession-card {
             background: #333;
             border-radius: 10px;
@@ -23,7 +29,12 @@
             width: 300px;
             text-align: center;
             position: relative;
-            margin: 10px auto;
+        }
+        .confession-card p {
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+            color: #e0e0e0;
         }
         .delete-button {
             position: absolute;
@@ -47,7 +58,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-align: center;
         }
         .private-button:hover {
             background-color: #555;
@@ -55,13 +65,13 @@
     </style>
 </head>
 <body>
-    <h1>Admin Panel</h1>
-    <div id="confessionGallery"></div>
-    <button class="private-button" onclick="checkPrivateAccess()">Access Private Confessions</button>
+    <h1>Admin Page</h1>
+    <button class="private-button" onclick="window.location.href='adminPrivate.html'">View Private Confessions</button>
+    <div class="confession-gallery" id="adminConfessionGallery"></div>
 
     <script>
-        function loadPublicConfessions() {
-            const gallery = document.getElementById('confessionGallery');
+        function loadConfessions() {
+            const gallery = document.getElementById('adminConfessionGallery');
             const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
             gallery.innerHTML = '';
 
@@ -77,19 +87,10 @@
             let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
             confessions.splice(index, 1);
             localStorage.setItem('publicConfessions', JSON.stringify(confessions));
-            loadPublicConfessions();
+            loadConfessions();
         }
 
-        function checkPrivateAccess() {
-            const password = prompt('Enter password for private confessions:');
-            if (password === '1006') {
-                window.location.href = 'private-confessions.html'; // Redirect to private confessions page
-            } else {
-                alert('Incorrect password.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadPublicConfessions);
+        document.addEventListener('DOMContentLoaded', loadConfessions);
     </script>
 </body>
 </html>
