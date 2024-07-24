@@ -56,19 +56,6 @@
             font-size: 1em;
             color: #e0e0e0;
         }
-        .delete-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .delete-button:hover {
-            background: darkred;
-        }
     </style>
 </head>
 <body>
@@ -88,16 +75,9 @@
             confessions.forEach((confession, index) => {
                 const card = document.createElement('div');
                 card.className = 'confession-card';
-                card.innerHTML = `<p>${confession}</p><button class="delete-button" onclick="deleteConfession(${index})">Delete</button>`;
+                card.innerHTML = `<p>${confession}</p>`;
                 gallery.appendChild(card);
             });
-        }
-
-        function deleteConfession(index) {
-            let confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
-            confessions.splice(index, 1);
-            localStorage.setItem('publicConfessions', JSON.stringify(confessions));
-            loadConfessions();
         }
 
         document.addEventListener('DOMContentLoaded', loadConfessions);
