@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confess Your Sins</title>
+    <title>Make a Confession</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,89 +11,60 @@
             background-color: #1e1e1e;
             color: #e0e0e0;
         }
-        h1 {
-            text-align: center;
-            color: #e0e0e0;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            max-width: 500px;
-            margin: 50px auto;
+        .confess-form {
+            max-width: 600px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #333;
-            border-radius: 8px;
+            background: #333;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        textarea {
-            resize: none;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #555;
-            border-radius: 5px;
-            font-size: 1em;
-            color: #e0e0e0;
-            background-color: #1e1e1e;
-            height: 200px; /* Increased height */
-        }
-        button {
+        .confess-form input, .confess-form textarea, .confess-form button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
             padding: 10px;
-            background-color: #444;
-            color: #e0e0e0;
             border: none;
             border-radius: 5px;
-            font-size: 1em;
+        }
+        .confess-form input, .confess-form textarea {
+            background: #444;
+            color: #e0e0e0;
+        }
+        .confess-form button {
+            background: #555;
+            color: #e0e0e0;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #555;
-        }
-        .center {
-            text-align: center;
-        }
-        label {
-            margin-bottom: 10px;
-            color: #e0e0e0;
+        .confess-form button:hover {
+            background: #666;
         }
     </style>
 </head>
 <body>
-    <h1>Confess Your Sins</h1>
-    <form id="confessionForm">
-        <textarea id="confession" placeholder="Confess your sins..." required></textarea>
-        <label>
-            <input type="checkbox" id="publishAnonymously"> Publish anonymously on the website
-        </label>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="message" class="center"></div>
+    <div class="confess-form">
+        <h1>Make a Confession</h1>
+        <textarea id="confessionText" placeholder="Enter your confession here..." rows="6"></textarea>
+        <input type="text" id="adminPassword" placeholder="Enter password if you are an admin (optional)"/>
+        <button onclick="submitConfession()">Submit</button>
+    </div>
 
     <script>
-        document.getElementById('confessionForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const confession = document.getElementById('confession').value;
-            const publishAnonymously = document.getElementById('publishAnonymously').checked;
-            const messageDiv = document.getElementById('message');
+        function submitConfession() {
+            const confessionText = document.getElementById('confessionText').value;
+            const adminPassword = document.getElementById('adminPassword').value;
 
-            if (publishAnonymously) {
-                let publicConfessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
-                publicConfessions.push(confession);
-                localStorage.setItem('publicConfessions', JSON.stringify(publicConfessions));
-
-                messageDiv.innerText = "Your confession has been received and will be published anonymously.";
-            } else {
-                let privateConfessions = JSON.parse(localStorage.getItem('privateConfessions')) || [];
-                privateConfessions.push(confession);
-                localStorage.setItem('privateConfessions', JSON.stringify(privateConfessions));
-
-                messageDiv.innerText = "Your confession has been received.";
+            if (adminPassword === '76631') {
+                window.location.href = 'admin.html'; // Redirect to admin page
+                return;
             }
 
-            document.getElementById('confession').value = '';
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        });
+            const confessions = JSON.parse(localStorage.getItem('publicConfessions')) || [];
+            confessions.push(confessionText);
+            localStorage.setItem('publicConfessions', JSON.stringify(confessions));
+            alert('Confession submitted!');
+            window.location.href = 'index.html'; // Redirect to main page
+        }
     </script>
 </body>
 </html>
