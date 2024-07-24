@@ -27,36 +27,41 @@
         }
         textarea {
             resize: none;
-            padding: 10px;
+            padding: 15px;
             margin-bottom: 10px;
             border: 1px solid #555;
             border-radius: 5px;
             font-size: 1em;
             color: #e0e0e0;
             background-color: #1e1e1e;
+            height: 200px; /* Increased height */
         }
         button {
             padding: 10px;
-            background-color: #007BFF;
-            color: white;
+            background-color: #444;
+            color: #e0e0e0;
             border: none;
             border-radius: 5px;
             font-size: 1em;
             cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #555;
         }
         .center {
             text-align: center;
+        }
+        label {
+            margin-bottom: 10px;
+            color: #e0e0e0;
         }
     </style>
 </head>
 <body>
     <h1>Confess Your Sins</h1>
     <form id="confessionForm">
-        <textarea id="confession" rows="4" placeholder="Confess your sins..." required></textarea>
-        <label style="color: #e0e0e0;">
+        <textarea id="confession" placeholder="Confess your sins..." required></textarea>
+        <label>
             <input type="checkbox" id="publishAnonymously"> Publish anonymously on the website
         </label>
         <button type="submit">Submit</button>
