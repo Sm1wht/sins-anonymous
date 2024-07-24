@@ -8,11 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             margin: 50px;
-            background-color: #f4f4f9;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #e0e0e0;
         }
         form {
             display: flex;
@@ -20,19 +21,55 @@
             max-width: 300px;
             margin: 50px auto;
             padding: 20px;
-            background-color: white;
+            background-color: #333;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         input[type="password"] {
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
             border-radius: 5px;
             font-size: 1em;
+            color: #e0e0e0;
+            background-color: #1e1e1e;
         }
         button {
             padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Login</h1>
+    <form id="adminLoginForm">
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+
+            if (password === 'your_admin_password') { // Change 'your_admin_password' to your actual password
+                localStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admin_dashboard.html';
+            } else {
+                document.getElementById('message').innerText = 'Incorrect password. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
